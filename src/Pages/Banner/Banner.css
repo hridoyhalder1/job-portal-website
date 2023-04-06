@@ -1,0 +1,58 @@
+.cv {
+    position: relative;
+    top: -200px;
+    left: 30px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    z-index: 2;
+}
+
+.candidates {
+    position: relative;
+    top: -210px;
+    right: -500px;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.upload {
+    position: relative;
+    top: 30px;
+    right: -500px;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 2;
+}
+.agency{
+    position: relative;
+    top: 150px;
+    left: 90px;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.icons {
+    height: 2em;
+    width: 2em;
+    margin-right: 10px;
+    cursor: pointer;
+    color: #f9ac02;
+}
+
+.fileIcon {
+    height: 2em;
+    width: 2em;
+    margin-right: 10px;
+    cursor: pointer;
+    color: #41aae6;
+}
+
+.agencyIcon {
+    height: 2em;
+    width: 2em;
+    margin-right: 10px;
+    cursor: pointer;
+    color: rgba(241, 129, 129, 0.937);
+}
