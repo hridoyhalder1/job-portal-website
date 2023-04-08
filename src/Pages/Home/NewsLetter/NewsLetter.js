@@ -9,7 +9,7 @@ const NewsLetter = () => {
         <div className='mx-5 bg-[#3c65f5] px-8 py-16 rounded-2xl md:rounded-xl lg:rounded-xl  mb-[100px]'>
             <div className='flex items-center justify-around'>
                 <div className='hidden md:block lg:block'>
-                    <img src={newsleft} alt="" />
+                    <img src={newsleft} alt="" draggable='false' />
                 </div>
                 <div>
                     <h1 className='text-white text-2xl lg:text-4xl text-center font-bold pb-5'>New Things Will Always <br /> Update Regularly</h1>
@@ -26,7 +26,7 @@ const NewsLetter = () => {
                     </div>
                 </div>
                 <div className='hidden md:block lg:block'>
-                    <img src={newsright} alt="" />
+                    <img src={newsright} alt="" draggable='false' />
                 </div>
             </div>
         </div>

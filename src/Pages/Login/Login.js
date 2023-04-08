@@ -1,17 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import underline from '../../assets/img/signup/underline_d.svg';
 import google from '../../assets/img/signup/google.png';
-import { Link } from 'react-router-dom';
 
-const SignUp = () => {
+
+const Login = () => {
     return (
         <div className='my-14'>
             <div className="hero min-h-screen ">
                 <div className="hero-content flex-col ">
                     <div className="text-center lg:text-left">
-                        <h1 className="text-4xl font-bold text-center">Sign-up and apply for free</h1>
-                        <img src={underline} alt="" />
-                        <p className="py-6 text-center text-[#8c8d8e]">1,50,000+ companies hiring on Job Lagbe </p>
+                        <h1 className="text-4xl font-bold text-center">Login Now!</h1>                        
                     </div>
                     <div className="card flex-shrink-0 w-full max-w-sm p-5  border border-[#41aae6] shadow-xl">
                         <div className="card-body">
@@ -21,15 +20,7 @@ const SignUp = () => {
                             </div>
                             <div className="divider">OR</div>
                             <form >
-                                <div className="form-control w-full max-w-xs">
-                                    <label className="label"> <span className="label-text">Name</span></label>
-                                    <input
-                                        type="text"
-                                        required
-                                        placeholder='Enter your name'
-                                        className="input input-bordered w-full max-w-xs"
-                                    />
-                                </div>
+                                
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Email</span>
@@ -52,7 +43,7 @@ const SignUp = () => {
                                     <button className="btn bg-[#41aae6] text-white border-none">Signup</button>
                                 </div>
                             </form>
-                            <p className='text-center'>Already registered?<Link className='text-[#41aae6]' to="/login"> Login</Link></p>
+                            <p className='text-center'>New to JobLagbe? <Link className='text-[#41aae6]' to="/signup"> Register</Link></p>
                         </div>
                     </div>
                 </div>
@@ -61,4 +52,4 @@ const SignUp = () => {
     );
 };
 
-export default SignUp;
+export default Login;

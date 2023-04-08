@@ -8,8 +8,8 @@ import { FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 
 const Navbar = () => {
     return (
-        <div className='sticky top-0 '>
-            <div className='bg-[#41aae6] py-2 text-white'>
+        <div className='sticky top-0 w-full'>
+            <div className='bg-[#41aae6] py-2 text-white w-full'>
                 <div className='mx-5 flex justify-between'>
                     <div className='flex items-center'>
                         <HiMail className='icon' ></HiMail>
@@ -49,8 +49,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <Link to='/' className="btn">Get started</Link>
-                    
+                    <Link to='/' className="btn">Get started</Link>                    
                 </div>
             </div>
         </div>
