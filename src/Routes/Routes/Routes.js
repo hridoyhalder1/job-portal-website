@@ -1,6 +1,7 @@
 import Main from "../../Layout/Main";
 import Home from "../../Pages/Home/Home";
 import Login from "../../Pages/Login/Login";
+import MyProfile from "../../Pages/MyProfile/MyProfile";
 import DisplayError from "../../Pages/Shared/DisplayError/DisplayError";
 import SignUp from "../../Pages/SignUp/SignUp";
 
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
                 element: <Login></Login>
             },
         ]
+    },
+    {
+        path: '/',
+        element: <MyProfile></MyProfile>
     }
 
 ])
