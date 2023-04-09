@@ -1,16 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import underline from '../../assets/img/signup/underline_d.svg';
 import google from '../../assets/img/signup/google.png';
+import { useForm } from 'react-hook-form';
 
 
 const Login = () => {
+    const { register, formState: { errors }, handleSubmit } = useForm();
+
+    const handleLogin = data => {
+        console.log(data);
+
+    }
+
+
+
     return (
         <div className='my-14'>
             <div className="hero min-h-screen ">
                 <div className="hero-content flex-col ">
                     <div className="text-center lg:text-left">
-                        <h1 className="text-4xl font-bold text-center">Login Now!</h1>                        
+                        <h1 className="text-4xl font-bold text-center">Login Now!</h1>
                     </div>
                     <div className="card flex-shrink-0 w-full max-w-sm p-5  border border-[#41aae6] shadow-xl">
                         <div className="card-body">
@@ -19,8 +28,9 @@ const Login = () => {
                                 <h1>Signup with google</h1>
                             </div>
                             <div className="divider">OR</div>
-                            <form >
-                                
+                            {/* form===== */}
+                            <form onSubmit={handleSubmit(handleLogin)}>
+
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Email</span>
@@ -28,15 +38,24 @@ const Login = () => {
                                     <input
                                         type="email"
                                         placeholder="email"
+                                        {...register("email", {
+                                            required: "Email Adress is required!"
+                                        })}
                                         className="input input-bordered"
-                                        required />
+                                    />
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Password</span>
                                     </label>
-                                    <input type="password" placeholder="Must be atleast 8 characters" className="input input-bordered" />
-
+                                    <input
+                                        type="password"
+                                        
+                                        placeholder="Must be atleast 8 characters"
+                                        className="input input-bordered"
+                                        {...register("password")}
+                                        id='mtInput'
+                                    />
 
                                 </div>
                                 <div className="form-control mt-6">
