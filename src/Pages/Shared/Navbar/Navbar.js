@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { HiMail } from "react-icons/hi";
 import './Navbar.css';
-import { FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
+import { FaInstagram, FaLinkedinIn, FaTwitter, FaUserCircle } from "react-icons/fa";
 import { AuthContext } from '../../../context/AuthProvider';
 import { toast } from 'react-hot-toast';
 
@@ -12,10 +12,10 @@ const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
     const handleLogOut = () => {
         logOut()
-        .then(() => {
-            toast.success('LogOut Successfully!');
-         })
-        .catch(error => console.log(error));
+            .then(() => {
+                toast.success('LogOut Successfully!');
+            })
+            .catch(error => console.log(error));
     }
     const menuItems = <>
         <li><Link to='/'>Home</Link></li>
@@ -63,8 +63,18 @@ const Navbar = () => {
                         {menuItems}
                     </ul>
                 </div>
+
                 <div className="navbar-end">
-                    <Link to='/' className="btn">Get started</Link>
+                    {user?.photoURL ?
+                        <img
+                            src={user?.photoURL}
+                            alt=""
+                            className=' rounded-full w-10 cursor-pointer'
+                            title={user?.displayName}
+
+                        />
+                        : <FaUserCircle className='icon'></FaUserCircle>
+                    }
                 </div>
             </div>
         </div>

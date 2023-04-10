@@ -6,13 +6,14 @@ import { useForm } from 'react-hook-form';
 import './SignUp.css';
 import { AuthContext } from '../../context/AuthProvider';
 import { toast } from 'react-hot-toast';
+import { FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 
 const SignUp = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [showMessage, setShowMessage] = useState(false);
     const [signUpError, setSignUpError] = useState('');
 
-    const {createUser, updateUser} = useContext(AuthContext);
+    const { createUser, updateUser, providerLogin } = useContext(AuthContext);
     const [isValid, setIsValid] = useState({
         letter: false,
         capital: false,
@@ -56,23 +57,46 @@ const SignUp = () => {
         console.log(data);
         setSignUpError('');
         createUser(data.email, data.password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                toast.success("User created Successfully");
+                const userInfo = {
+                    displayName: data.name
+                }
+                updateUser(userInfo)
+                    .then(() => { })
+                    .catch(err => console.log(err));
+            })
+            .catch(error => {
+                console.log(error);
+                setSignUpError(error.message);
+            });
+
+    }
+
+    // google sign in
+    const googleProvider = new GoogleAuthProvider();
+    const handleGoogleSignIn = () => {
+        providerLogin(googleProvider)
         .then(result => {
             const user = result.user;
             console.log(user);
-            toast.success("User created Successfully");
-            const userInfo = {
-                displayName: data.name
-            }
-            updateUser(userInfo)
-            .then(() => { })
-            .catch(err => console.log(err));
+            toast.success('Sign in Successfully!')
         })
-        .catch(error => {
-            console.log(error);
-            setSignUpError(error.message);
-        });
-
+        .catch(err => console.log(err));
     }
+
+    // // facebook sign in
+    // const facebookProvider = new FacebookAuthProvider();
+    // const handleFacebookSignIn = () => {
+    //     providerLogin(facebookProvider)
+    //     .then(result => {
+    //         const user = result.user;
+    //         console.log(user);
+    //     })
+    //     .catch(err => console.log(err));
+    // }
 
 
 
@@ -89,11 +113,17 @@ const SignUp = () => {
                     {/* max-w-sm */}
                     <div className="card flex-shrink-0 w-full  p-5  border border-[#41aae6] shadow-xl">
                         <div className="card-body">
-                            <div className='flex items-center justify-center border shadow-md py-3 rounded-md cursor-pointer'>
+                            <div className='flex items-center justify-center border shadow-md py-3 rounded-md cursor-pointer' onClick={handleGoogleSignIn} >
                                 <img src={google} alt="" className='w-[30px] mr-3' />
                                 <h1>Signup with google</h1>
                             </div>
                             <div className="divider">OR</div>
+                            
+                            {/* <div className='flex items-center justify-center border shadow-md py-3 rounded-md cursor-pointer' onClick={handleFacebookSignIn} >
+                                <img src={google} alt="" className='w-[30px] mr-3' />
+                                <h1>Signup with Facebook</h1>
+                            </div>
+                            <div className="divider">OR</div> */}
                             <form onSubmit={handleSubmit(handleSignIn)}>
                                 <div className="form-control ">
                                     <label className="label"> <span className="label-text">Name</span></label>
@@ -141,7 +171,7 @@ const SignUp = () => {
 
                                     />
                                     {/* {errors.password && <p className='text-red-600 text-[16px] py-1'>{errors.password.message}</p>} */}
-                                    
+
                                 </div>
                                 <div className="form-control mt-6">
                                     <button className="btn bg-[#41aae6] text-white border-none">Signup</button>
