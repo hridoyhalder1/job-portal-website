@@ -1,17 +1,22 @@
 import React, { useContext, useState } from 'react';
 import underline from '../../assets/img/signup/underline_d.svg';
 import google from '../../assets/img/signup/google.png';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import './SignUp.css';
 import { AuthContext } from '../../context/AuthProvider';
 import { toast } from 'react-hot-toast';
 import { FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 
+
 const SignUp = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [showMessage, setShowMessage] = useState(false);
     const [signUpError, setSignUpError] = useState('');
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const from = location.state?.from?.pathname || '/';
 
     const { createUser, updateUser, providerLogin } = useContext(AuthContext);
     const [isValid, setIsValid] = useState({
@@ -61,6 +66,7 @@ const SignUp = () => {
                 const user = result.user;
                 console.log(user);
                 toast.success("User created Successfully");
+                navigate(from, {replace: true})
                 const userInfo = {
                     displayName: data.name
                 }
@@ -79,12 +85,13 @@ const SignUp = () => {
     const googleProvider = new GoogleAuthProvider();
     const handleGoogleSignIn = () => {
         providerLogin(googleProvider)
-        .then(result => {
-            const user = result.user;
-            console.log(user);
-            toast.success('Sign in Successfully!')
-        })
-        .catch(err => console.log(err));
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                toast.success('Sign in Successfully!');
+                navigate(from, {replace: true})
+            })
+            .catch(err => console.log(err));
     }
 
     // // facebook sign in
@@ -118,7 +125,7 @@ const SignUp = () => {
                                 <h1>Signup with google</h1>
                             </div>
                             <div className="divider">OR</div>
-                            
+
                             {/* <div className='flex items-center justify-center border shadow-md py-3 rounded-md cursor-pointer' onClick={handleFacebookSignIn} >
                                 <img src={google} alt="" className='w-[30px] mr-3' />
                                 <h1>Signup with Facebook</h1>

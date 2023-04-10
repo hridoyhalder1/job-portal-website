@@ -25,6 +25,7 @@ const Navbar = () => {
         {user?.uid ?
             <>
                 <li><button onClick={handleLogOut}>LogOut</button></li>
+                <li><Link to='/my-profile'>My Profile</Link></li>
             </>
             :
             <li><Link to='/signup'>SignUp</Link></li>
@@ -64,12 +65,13 @@ const Navbar = () => {
                     </ul>
                 </div>
 
-                <div className="navbar-end">
+                <div className="navbar-end  "
+                >
                     {user?.photoURL ?
                         <img
                             src={user?.photoURL}
                             alt=""
-                            className=' rounded-full w-10 cursor-pointer'
+                            className=' rounded-full w-10 cursor-pointer '
                             title={user?.displayName}
 
                         />
@@ -77,7 +79,7 @@ const Navbar = () => {
                     }
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

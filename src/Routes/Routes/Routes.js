@@ -4,18 +4,19 @@ import Login from "../../Pages/Login/Login";
 import MyProfile from "../../Pages/MyProfile/MyProfile";
 import DisplayError from "../../Pages/Shared/DisplayError/DisplayError";
 import SignUp from "../../Pages/SignUp/SignUp";
+import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
 
 const { createBrowserRouter } = require("react-router-dom");
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element:<Main></Main>,
-        errorElement: <DisplayError/>,
+        element: <Main></Main>,
+        errorElement: <DisplayError />,
         children: [
             {
                 path: '/',
-                element: <Home/>
+                element: <Home />
             },
             {
                 path: '/signup',
@@ -28,8 +29,8 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path: '/',
-        element: <MyProfile></MyProfile>
+        path: '/my-profile',
+        element: <PrivateRoutes><MyProfile></MyProfile></PrivateRoutes>
     }
 
 ])
