@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import underline from '../../assets/img/signup/underline_d.svg';
 import google from '../../assets/img/signup/google.png';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -7,16 +7,17 @@ import './SignUp.css';
 import { AuthContext } from '../../context/AuthProvider';
 import { toast } from 'react-hot-toast';
 import { FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth';
+import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 
 const SignUp = () => {
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, formState: { errors }, handleSubmit, watch } = useForm();
     const [showMessage, setShowMessage] = useState(false);
     const [signUpError, setSignUpError] = useState('');
-    const location = useLocation();
+    // const location = useLocation();
     const navigate = useNavigate();
 
-    const from = location.state?.from?.pathname || '/';
+    // const from = location.state?.from?.pathname || '/';
 
     const { createUser, updateUser, providerLogin } = useContext(AuthContext);
     const [isValid, setIsValid] = useState({
@@ -58,15 +59,24 @@ const SignUp = () => {
 
     }
 
-    const handleSignIn = data => {
+    // confirm password validation
+    const password = useRef({});
+    password.current = watch("password", "");
+
+
+    const handleSignIn = async (data, event) => {
+        alert(JSON.stringify(data));
+        const form = event.target;
         console.log(data);
         setSignUpError('');
         createUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                form.reset();
                 toast.success("User created Successfully");
-                navigate(from, {replace: true})
+                // navigate(from, {replace: true})
+                navigate('/');
                 const userInfo = {
                     displayName: data.name
                 }
@@ -89,7 +99,8 @@ const SignUp = () => {
                 const user = result.user;
                 console.log(user);
                 toast.success('Sign in Successfully!');
-                navigate(from, {replace: true})
+                // navigate(from, {replace: true})
+                navigate('/');
             })
             .catch(err => console.log(err));
     }
@@ -104,6 +115,8 @@ const SignUp = () => {
     //     })
     //     .catch(err => console.log(err));
     // }
+
+
 
 
 
@@ -142,7 +155,7 @@ const SignUp = () => {
                                         placeholder='Enter your name'
                                         className="input input-bordered "
                                     />
-                                    {errors.name && <p className='text-red-600 text-[16px] py-1'>{errors.name.message}</p>}
+                                    {errors.name && <p className='text-red-600 text-[16px] py-1 flex items-center '><HiOutlineExclamationCircle className='mr-1'/>{errors.name.message}</p>}
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
@@ -156,7 +169,7 @@ const SignUp = () => {
                                         })}
                                         className="input input-bordered"
                                     />
-                                    {errors.email && <p className='text-red-600 text-[16px] py-1'>{errors.email.message}</p>}
+                                    {errors.email && <p className='text-red-600 text-[16px] py-1 flex items-center '><HiOutlineExclamationCircle className='mr-1'/>{errors.email.message}</p>}
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
@@ -165,11 +178,13 @@ const SignUp = () => {
                                     <input
                                         type="password"
                                         placeholder="Must be atleast 8 characters"
-                                        {...register("password", {
-                                            required: "Password is required",
-                                            minLength: { value: 8, message: "Password must be 8 characters long" },
-                                            pattern: { value: /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/, message: 'Password must have lowercase, uppercase & number' }
-                                        })}
+                                        {
+                                            ...register("password", {
+                                                required: "Password is required",
+                                                minLength: { value: 8, message: "Password must be 8 characters long" },
+                                                pattern: { value: /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/, message: 'Password must have lowercase, uppercase & number' }
+                                            })
+                                        }
                                         onFocus={handleFocus}
                                         onBlur={handleBlur}
                                         onKeyUp={handleKeyUp}
@@ -178,6 +193,34 @@ const SignUp = () => {
 
                                     />
                                     {/* {errors.password && <p className='text-red-600 text-[16px] py-1'>{errors.password.message}</p>} */}
+
+                                </div>
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Confrim Password</span>
+                                    </label>
+                                    <input
+                                        type="password"
+                                        name='confirm_password'
+                                        // onChange={this.confirmHandlePasswordChange}
+                                        placeholder="Must be atleast 8 characters"
+                                        {
+                                            ...register("confirm_password", {
+                                                // required: "Confirm your password",
+                                                validate: value =>
+                                                    value === password.current || "The passwords do not match",
+                                                minLength: { value: 8, message: "Password must be 8 characters long" },
+                                                pattern: { value: /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/, message: 'Password must have lowercase, uppercase & number' }
+                                            })
+                                        }
+                                        onFocus={handleFocus}
+                                        onBlur={handleBlur}
+                                        onKeyUp={handleKeyUp}
+                                        className="input input-bordered"
+                                        id='psw'
+
+                                    />
+                                    {errors.confirm_password &&  <p className='text-red-600 text-[16px] py-1'><HiOutlineExclamationCircle/>{errors.confirm_password.message}</p>}
 
                                 </div>
                                 <div className="form-control mt-6">

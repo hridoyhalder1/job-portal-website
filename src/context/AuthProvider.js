@@ -7,7 +7,7 @@ const auth = getAuth(app)
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const  [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     // user create
     const createUser = (email, password) => {
@@ -27,7 +27,7 @@ const AuthProvider = ({ children }) => {
         return signOut(auth);
     }
     // update user/name
-    const updateUser = ( userInfo ) => {
+    const updateUser = (userInfo) => {
         return updateProfile(auth.currentUser, userInfo);
     }
 
@@ -39,11 +39,13 @@ const AuthProvider = ({ children }) => {
     // onState Change
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
-            console.log('user observing!');
+            console.log('current user', currentUser);
             setUser(currentUser);
             setLoading(false);
         });
-        return () => unsubscribe();
+        return () => {
+            unsubscribe();
+        }
     }, [])
     const authInfo = {
         createUser,

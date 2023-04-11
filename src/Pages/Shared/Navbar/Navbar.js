@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { HiMail } from "react-icons/hi";
 import './Navbar.css';
 import { FaInstagram, FaLinkedinIn, FaTwitter, FaUserCircle } from "react-icons/fa";
@@ -9,6 +9,8 @@ import { toast } from 'react-hot-toast';
 
 
 const Navbar = () => {
+    const navigate = useNavigate();
+
     const { user, logOut } = useContext(AuthContext);
     const handleLogOut = () => {
         logOut()
@@ -16,6 +18,8 @@ const Navbar = () => {
                 toast.success('LogOut Successfully!');
             })
             .catch(error => console.log(error));
+            navigate('/login');
+            
     }
     const menuItems = <>
         <li><Link to='/'>Home</Link></li>
