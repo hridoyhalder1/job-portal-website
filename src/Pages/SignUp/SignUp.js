@@ -116,6 +116,24 @@ const SignUp = () => {
     //     .catch(err => console.log(err));
     // }
 
+    const showPass = () => {
+        const pass = document.getElementById('psw');
+        if (pass.type === 'password') {
+            pass.type = 'text'
+        }
+        else{
+            pass.type = 'password'
+        }
+    }
+    const showPasss = () => {
+        const pass = document.getElementById('psww');
+        if (pass.type === 'password') {
+            pass.type = 'text'
+        }
+        else{
+            pass.type = 'password'
+        }
+    }
 
 
 
@@ -189,9 +207,13 @@ const SignUp = () => {
                                         onBlur={handleBlur}
                                         onKeyUp={handleKeyUp}
                                         className="input input-bordered"
-                                        id='psw'
+                                        id='psww'
 
                                     />
+                                    <div className='flex items-center'>
+                                        <input type="checkbox"  className='mr-2' onClick={showPasss} /><p>Show Password</p>
+                                    </div>
+                                    
                                     {/* {errors.password && <p className='text-red-600 text-[16px] py-1'>{errors.password.message}</p>} */}
 
                                 </div>
@@ -220,7 +242,10 @@ const SignUp = () => {
                                         id='psw'
 
                                     />
-                                    {errors.confirm_password &&  <p className='text-red-600 text-[16px] py-1'><HiOutlineExclamationCircle/>{errors.confirm_password.message}</p>}
+                                    <div className='flex items-center'>
+                                        <input type="checkbox"  className='mr-2' onClick={showPass} /><p>Show Password</p>
+                                    </div>
+                                    {errors.confirm_password &&  <p className='text-red-600 text-[16px] py-1 flex items-center '><HiOutlineExclamationCircle className='mr-1'/>{errors.confirm_password.message}</p>}
 
                                 </div>
                                 <div className="form-control mt-6">

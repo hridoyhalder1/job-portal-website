@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import google from '../../assets/img/signup/google.png';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../context/AuthProvider';
-import {  toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
@@ -15,41 +15,51 @@ const Login = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const from = location.state?.from?.pathname || '/';
+    const from = location.state?.from?.pathname || '/my-profile';
 
     const handleLogin = (data, event) => {
         const form = event.target;
         console.log(data);
         setLoginError('');
         signIn(data.email, data.password)
-        .then(result => {
-            const user = result.user;
-            console.log(user);
-            form.reset();
-            toast.success('Login Successfully!');
-            navigate(from, {replace: true});
-        })
-        .catch(error => {
-            console.log(error.message);
-            setLoginError(error.message);
-        });
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                form.reset();
+                toast.success('Login Successfully!');
+                navigate(from, { replace: true });
+            })
+            .catch(error => {
+                console.log(error.message);
+                setLoginError(error.message);
+            });
 
     }
 
     // google login 
-     // google sign in
-     const googleProvider = new GoogleAuthProvider();
-     const handleGoogleSignIn = () => {
-         providerLogin(googleProvider)
-             .then(result => {
-                 const user = result.user;
-                 console.log(user);
-                 toast.success('Login Successfully!');
-                 // navigate(from, {replace: true})
-                 navigate('/');
-             })
-             .catch(err => console.log(err));
-     }
+    // google sign in
+    const googleProvider = new GoogleAuthProvider();
+    const handleGoogleSignIn = () => {
+        providerLogin(googleProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                toast.success('Login Successfully!');
+                // navigate(from, {replace: true})
+                navigate('/');
+            })
+            .catch(err => console.log(err));
+    }
+
+    const showPass = () =>{
+        const pass = document.getElementById('mtInput');
+        if (pass.type === 'password') {
+            pass.type = 'text'
+        }
+        else{
+            pass.type = 'password'
+        }
+    }
 
 
 
@@ -83,7 +93,7 @@ const Login = () => {
                                         })}
                                         className="input input-bordered"
                                     />
-                                    {errors.email && <p className='text-red-600 py-1 flex items-center '><HiOutlineExclamationCircle className='mr-1'/>{errors.email?.message}</p>}
+                                    {errors.email && <p className='text-red-600 py-1 flex items-center '><HiOutlineExclamationCircle className='mr-1' />{errors.email?.message}</p>}
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
@@ -99,7 +109,10 @@ const Login = () => {
                                         })}
                                         id='mtInput'
                                     />
-                                    {errors.password && <p className='text-red-600 py-1 flex items-center '><HiOutlineExclamationCircle className='mr-1'/>{errors.password?.message}</p>}
+                                    <div className='flex items-center'>
+                                        <input type="checkbox"  className='mr-2' onClick={showPass} /><p>Show Password</p>
+                                    </div>
+                                    {errors.password && <p className='text-red-600 py-1 flex items-center '><HiOutlineExclamationCircle className='mr-1' />{errors.password?.message}</p>}
                                 </div>
                                 <div className="form-control mt-6">
                                     <button className="btn bg-[#41aae6] text-white border-none">Signup</button>
