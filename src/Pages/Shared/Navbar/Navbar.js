@@ -2,9 +2,11 @@ import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { HiMail } from "react-icons/hi";
 import './Navbar.css';
-import { FaInstagram, FaLinkedinIn, FaTwitter, FaUserCircle } from "react-icons/fa";
+import { FaInstagram, FaTwitter } from "react-icons/fa";
 import { AuthContext } from '../../../context/AuthProvider';
 import { toast } from 'react-hot-toast';
+import profile from '../../../assets/img/profile-11.jpg';
+// import DarkModeToggler from '../../../DarkModeToggler/DarkModeToggler';
 
 
 
@@ -18,8 +20,8 @@ const Navbar = () => {
                 toast.success('LogOut Successfully!');
             })
             .catch(error => console.log(error));
-            navigate('/login');
-            
+        navigate('/login');
+
     }
     const menuItems = <>
         <li><Link to='/'>Home</Link></li>
@@ -69,8 +71,8 @@ const Navbar = () => {
                     </ul>
                 </div>
 
-                <div className="navbar-end  "
-                >
+                <div className="navbar-end ">
+                {/* <DarkModeToggler theme={theme} toggleTheme={toggleTheme} /> */}
                     {user?.photoURL ?
                         <img
                             src={user?.photoURL}
@@ -79,7 +81,14 @@ const Navbar = () => {
                             title={user?.displayName}
 
                         />
-                        : <FaUserCircle className='icon'></FaUserCircle>
+                        : <img
+                            src={profile}
+                            alt=''
+                            className='rounded-[50%] w-[50px] '
+                            // title={Profile}
+                        />
+                        // <FaUserCircle className='icon'></FaUserCircle>
+
                     }
                 </div>
             </div>

@@ -1,0 +1,50 @@
+[
+    {
+      "_id": "1",
+      "img": "https://shreethemes.in/jobstack/layouts/assets/images/company/facebook-logo.png",
+      "name": "Web Designer",
+      "status": "Part Time",
+      "location": "Australia",
+      "pay": "4-5K"
+    },
+    {
+        "_id": "2",
+        "img": "https://shreethemes.in/jobstack/layouts/assets/images/company/google-logo.png",
+        "name": "Marketing Director",
+        "status": "Full Time",
+        "location": "USA",
+        "pay": "2-5K"
+      },
+    {
+        "_id": "3",
+        "img": "https://shreethemes.in/jobstack/layouts/assets/images/company/android.png",
+        "name": "App Developer",
+        "status": "Remote",
+        "location": "India",
+        "pay": "5-8K"
+      },
+    {
+        "_id": "4",
+        "img": "https://shreethemes.in/jobstack/layouts/assets/images/company/lenovo-logo.png",
+        "name": "Product Designer",
+        "status": "Remote",
+        "location": "Canada",
+        "pay": "5-8K"
+      },
+    {
+        "_id": "5",
+        "img": "https://shreethemes.in/jobstack/layouts/assets/images/company/spotify.png",
+        "name": "Web Developer",
+        "status": "Remote",
+        "location": "UK",
+        "pay": "2-4K"
+      },
+    {
+        "_id": "6",
+        "img": "https://shreethemes.in/jobstack/layouts/assets/images/company/linkedin.png",
+        "name": "Php Developer",
+        "status": "Remote",
+        "location": "Canda",
+        "pay": "5-8K"
+      }
+  ]

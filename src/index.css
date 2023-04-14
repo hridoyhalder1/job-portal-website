@@ -6,7 +6,11 @@ body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale; 
+}
+::selection {
+  color: white;
+  background: #291334;
 }
 
 code {
