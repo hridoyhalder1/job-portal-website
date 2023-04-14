@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { HiMail } from "react-icons/hi";
+import { HiMail, HiOutlineExclamation, HiOutlineLogout } from "react-icons/hi";
 import './Navbar.css';
-import { FaInstagram, FaTwitter } from "react-icons/fa";
+import { FaInstagram, FaRegBookmark, FaTwitter } from "react-icons/fa";
 import { AuthContext } from '../../../context/AuthProvider';
 import { toast } from 'react-hot-toast';
 import profile from '../../../assets/img/profile-11.jpg';
@@ -31,7 +31,7 @@ const Navbar = () => {
         {user?.uid ?
             <>
                 <li><button onClick={handleLogOut}>LogOut</button></li>
-                <li><Link to='/my-profile'>My Profile</Link></li>
+                {/* <li><Link to='/my-profile'>My Profile</Link></li> */}
             </>
             :
             <li><Link to='/signup'>SignUp</Link></li>
@@ -72,24 +72,71 @@ const Navbar = () => {
                 </div>
 
                 <div className="navbar-end ">
-                {/* <DarkModeToggler theme={theme} toggleTheme={toggleTheme} /> */}
+                    {/* <DarkModeToggler theme={theme} toggleTheme={toggleTheme} /> */}
                     {user?.photoURL ?
-                        <img
-                            src={user?.photoURL}
-                            alt=""
-                            className=' rounded-full w-10 cursor-pointer '
-                            title={user?.displayName}
+                        <div className="dropdown dropdown-bottom dropdown-end">
+                            <img
+                                src={user?.photoURL}
+                                alt=""
+                                className=' rounded-full w-10 cursor-pointer '
+                                title={user?.displayName}
+                                tabIndex={0}
 
-                        />
-                        : <img
-                            src={profile}
-                            alt=''
-                            className='rounded-[50%] w-[50px] '
-                            // title={Profile}
-                        />
+                            />
+                            <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-[#130f40] rounded-box w-52">
+                                <div className='text-center mx-auto'>
+                                    <img
+                                        src={user?.photoURL}
+                                        alt=""
+                                        className='w-[60px] rounded-full mx-auto '
+                                    />
+                                    <h1 className='mb-4 '>{user?.displayName}</h1>
+                                    <Link to='/my-profile' className='buttons pt-5 ' >View Profile</Link>
+                                    <hr className='mt-6 w-full p-0' />
+                                    <div className='flex items-center mt-2 cursor-pointer'>
+                                        <FaRegBookmark className='mr-2'/>
+                                        <h1>Bookmark</h1>
+                                    </div>
+                                    <div className='flex items-center mt-2 cursor-pointer'>
+                                        <HiOutlineLogout className='mr-2'/>
+                                        <button onClick={handleLogOut}>LogOut</button>
+                                    </div>
+                                </div>
+                            </ul>
+                        </div>
+                        :
+                        <div className="dropdown dropdown-bottom dropdown-end">
+                            <img
+                                src={profile}
+                                alt=''
+                                className='rounded-[50%] w-[50px] '
+                                tabIndex={0}
+                            />
+                            <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-[#130f40] rounded-box w-52">
+                                <div className='text-center mx-auto'>
+                                    <img
+                                        src={profile}
+                                        alt=""
+                                        className='w-[60px] rounded-full mx-auto '
+                                    />
+                                    <h1 className='mb-4 '>{user?.displayName}</h1>
+                                    <div className=' text-center'>
+                                        <HiOutlineExclamation className=' ml-[40%] icon text-red-500 ' />
+                                    </div>
+                                    <h1>Please Register with your valid mail! Otherwise you can't get other access!</h1>
+                                    {/* <Link to='/my-profile' className='buttons pt-5 ' >View Profile</Link>
+                                   <hr className='mt-6 w-full p-0'/>
+                                    <li><a>Item 2</a></li> */}
+                                </div>
+                            </ul>
+                        </div>
+
+
+                        // : 
                         // <FaUserCircle className='icon'></FaUserCircle>
 
                     }
+
                 </div>
             </div>
         </div >

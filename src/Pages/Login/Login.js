@@ -15,7 +15,7 @@ const Login = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const from = location.state?.from?.pathname || '/my-profile';
+    // const from = location.state?.from?.pathname || '/my-profile';
 
     const handleLogin = (data, event) => {
         const form = event.target;
@@ -27,7 +27,7 @@ const Login = () => {
                 console.log(user);
                 form.reset();
                 toast.success('Login Successfully!');
-                navigate(from, { replace: true });
+                navigate('/');
             })
             .catch(error => {
                 console.log(error.message);

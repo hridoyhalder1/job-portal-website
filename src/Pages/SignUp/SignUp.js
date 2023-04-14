@@ -76,7 +76,7 @@ const SignUp = () => {
                 form.reset();
                 toast.success("User created Successfully");
                 // navigate(from, {replace: true})
-                navigate('/');
+                navigate('/login');
                 const userInfo = {
                     displayName: data.name
                 }
